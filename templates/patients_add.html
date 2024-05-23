@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<div class="container mt-5">
+
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="/patients" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+            <img src="{{url_for('static', filename='assets/user_avatar.png')}}" alt="" width="60" height="60">
+
+            <span class="fs-4">{{ current_user.name }} {{ current_user.surname }}</span>
+        </a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <span class="fs-4">{{ current_user.department.name }}</span>
+        </nav>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/logout">Выйти</a>
+        </nav>
+    </div>
+
+
+    <h1>Новый пациент</h1><br>
+
+    <div class="col-lg-4 text-left">
+
+        <form action="/patients_add" method="post">
+            <input type="text" name="name" id="name"
+                class="form-control border border-primary {{'border-danger' if 'name' in empty_fields }}"
+                placeholder="Имя">
+            {% if "name" in empty_fields %}<div class="error-form-field">Заполните имя</div> {% endif %}
+            <br>
+
+            <input type="text" name="surname" id="surname" class="form-control border border-primary"
+                placeholder="Фамилия">
+            {% if "surname" in empty_fields %}<div class="error-form-field">Заполните фамилию</div> {% endif %}
+            <br>
+
+            <input type="text" name="phone" id="phone" class="form-control border border-primary" placeholder="Телефон">
+            {% if "phone" in empty_fields %}<div class="error-form-field">Заполните телефон</div> {% endif %}
+            <br>
+
+            <select class="form-control form-select border border-primary" name="gender" id="gender">
+                <option value="Женский пол">Женский пол</option>
+                <option value="Мужской пол">Мужской пол</option>
+            </select>
+            {% if "gender" in empty_fields %}<div class="error-form-field">Выберите пол</div> {% endif %}
+            <br>
+
+            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control border border-primary"
+                placeholder="Дата рождения">
+            {% if "date_of_birth" in empty_fields %}<div class="error-form-field">Заполните дату рождения</div> {% endif%}
+            <br>
+
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

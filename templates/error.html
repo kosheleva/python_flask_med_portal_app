@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{{url_for('static', filename='assets/error_icon.png')}}" alt="" width="72" height="75" />
+    <h3 class="display-5 fw-bold text-body-emphasis text-center">
+        Что-то пошло не так...
+    </h3>
+    <br />
+    <div class="col-lg-4 mx-auto">
+        <p class="lead mb-4">Произошла ошибка. Пожалуйста, повторите позже.</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+        <a href="/patients" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+            <img src="{{url_for('static', filename='assets/user_avatar.png')}}" alt="" width="60" height="60">
+
+            <span class="fs-4">{{ current_user.name }} {{ current_user.surname }}</span>
+        </a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <span class="fs-4">{{ current_user.department.name }}</span>
+        </nav>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+            <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/logout">Выйти</a>
+        </nav>
+    </div>
+
+    <h1>Пациенты <a href="/patients_add" class="btn btn-primary">Добавить</a> </h1>
+
+
+    {% if not patients %}
+    <p class="lead">
+      У Вас пока нет пациентов.
+    </p>
+    {% endif %}
+
+    {% if patients %}
+
+    {% for p in patients %}
+
+    <div class="list-group">
+        <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h4 class="mb-0">{{ p['patient_info']['surname'] }} {{ p['patient_info']['name'] }}</h4>
+                    <p class="mb-0 opacity-75"><b>Тел.</b>: {{ p['patient_info']['phone'] }}</p>
+                    <p class="mb-0 opacity-75"><b>Пол</b>: {{ p['patient_info']['gender'] }}</p>
+                    <p class="mb-0 opacity-75"><b>Дата рождения</b>: {{ p['patient_info']['date_of_birth'] }}</p>
+                    <p class="mb-0 opacity-75"><b>Возраст</b>: {{ p['patient_info']['age'] }}</p>
+
+                    <br>
+
+                    {% for c in p.consultations %}
+
+                    {% if c %}
+                      <div class="alert alert-primary" role="alert">
+
+                          <p><b>{{c[0]['c_date']}} - {{c[0]['complaint']}}</b></p>
+                          <p><b><u>Диагноз:</u></b> {{c[0]['diagnosis']}}</p>
+
+
+                          {% for item in c %}
+
+                          {% if item['medicine_name'] %}
+                          <p><b><u>Назначение:</u></b> {{item['medicine_name']}}</p>
+                          <p>{{item['description']}}</p>
+                          {% endif %}
+
+
+                          {% endfor %}
+
+                          <form action="/patients_add_schema" method="post">
+                              <select class="form-control form-select border border-primary" name="medicine_id" id="medicine_id">
+                                  <option selected>--лекарство--</option>
+
+                                  {% for m in medicines %}
+                                  <option value="{{m.id}}">{{m.name}}</option>
+                                  {% endfor %}
+                              </select>
+
+                              <br>
+
+                              <input type="date" name="start_date" id="start_date" class="form-control border border-primary"
+                              placeholder="С даты">
+                              <br>
+                              <input type="date" name="end_date" id="end_date" class="form-control border border-primary"
+                              placeholder="По дату">
+                              <br>
+                              <input type="text" name="description" id="description" class="form-control border border-primary"
+                              placeholder="Назначение">
+
+                              <input type="hidden" name="consultation_id" id="consultation_id"
+                              class="form-control border border-primary" value="{{c[0]['consultation_id']}}">
+
+                              <br>
+
+                              <button type="submit" class="btn btn-primary">Добавить</button>
+                          </form>
+
+                      </div>
+                    {% endif %}
+
+                    {% endfor %}
+
+                </div>
+
+                <form action="/patients_add_consultation" method="post">
+                    <input type="text" name="complaint" id="complaint" class="form-control border border-primary"
+                      placeholder="Жалоба">
+
+                    <br>
+                    <input type="text" name="diagnosis" id="diagnosis" class="form-control border border-primary"
+                      placeholder="Диагноз">
+                    <br>
+
+                    <input type="hidden" name="patient_id" id="patient_id" class="form-control border border-primary"
+                      value="{{p.patient_id}}">
+
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </form>
+
+            </div>
+
+        </a>
+        <br>
+
+    </div>
+
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

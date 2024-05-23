@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{{url_for('static', filename='assets/med_logo.png')}}" alt="" width="72"
+    height="75">
+    <h3 class="display-5 fw-bold text-body-emphasis text-center">Регистрация</h3>
+    <br>
+    <div class="col-lg-4 mx-auto">
+      <form action="/register" method="post">
+          <input type="text" name="name" id="name"
+            class="form-control border border-primary {{'border-danger' if 'name' in empty_fields }}" placeholder="Имя">
+          {% if "name" in empty_fields %}<div class="error-form-field">Заполните имя</div> {% endif %}
+          <br>
+          <input type="text" name="surname" id="surname" class="form-control border border-primary" placeholder="Фамилия">
+          {% if "surname" in empty_fields %}<div class="error-form-field">Заполните фамилию</div> {% endif %}
+          <br>
+          <input type="text" name="phone" id="phone" class="form-control border border-primary" placeholder="Телефон">
+          {% if "phone" in empty_fields %}<div class="error-form-field">Заполните телефон</div> {% endif %}
+          <br>
+          <input type="text" name="email" id="email" class="form-control border border-primary"
+            placeholder="Электронная почта">
+          {% if "email" in empty_fields %}<div class="error-form-field">Заполните электронную почту</div> {% endif %}
+          <br>
+          <input type="password" name="password" id="password" class="form-control border border-primary"
+            placeholder="Пароль">
+          {% if "password" in empty_fields %}<div class="error-form-field">Заполните пароль</div> {% endif %}
+          <br>
+
+          <select class="form-control form-select border border-primary" name="position_id" id="position_id">
+            <option selected>--профиль--</option>
+
+            {% for p in positions %}
+            <option value="{{p.id}}">{{p.name}}</option>
+            {% endfor %}
+          </select>
+          {% if "position_id" in empty_fields %}<div class="error-form-field">Выберите профиль</div> {% endif %}
+          <br>
+
+          <select class="form-control form-select border border-primary" name="department_id" id="department_id">
+            <option selected>--отделение--</option>
+
+            {% for d in departments %}
+            <option value="{{d.id}}">{{d.name}}</option>
+            {% endfor %}
+          </select>
+          {% if "department_id" in empty_fields %}<div class="error-form-field">Выберите отделение</div> {% endif %}
+          <br>
+
+          <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+      </form>
+    </div>
+</div>
+
+{% endblock %}

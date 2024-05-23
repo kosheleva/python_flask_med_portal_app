@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block body %}
+
+<div class="px-4 py-5 my-5 text-center">
+    <img class="d-block mx-auto mb-4" src="{{url_for('static', filename='assets/med_logo.png')}}" alt="" width="72" height="75" />
+    <h3 class="display-5 fw-bold text-body-emphasis text-center">Логин</h3>
+    <br />
+    <div class="col-lg-4 mx-auto">
+        <form action="/login" method="post">
+            <input type="text" name="email" id="email" class="form-control border border-primary" placeholder="Электронная почта" />
+            {% if "email" in empty_fields %}
+                <div class="error-form-field">Заполните электронную почту</div>
+            {% endif %}
+            <br />
+
+            <input type="password" name="password" id="password" class="form-control border border-primary" placeholder="Пароль" />
+            {% if "password" in empty_fields %}
+              <div class="error-form-field">Заполните пароль</div>
+            {% endif %}
+            <br />
+
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
