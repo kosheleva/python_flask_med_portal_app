@@ -4,7 +4,7 @@ The app, written on Python + Flask + SQLAlchemy, represents an example of medica
 
 ## Demo
 
-[![Demo video](https://raw.githubusercontent.com/kosheleva/python_flask_med_portal_app/master/demo_icon.png)](https://raw.githubusercontent.com/kosheleva/python_flask_med_portal_app/master/demo.mp4)
+[![Watch the video](https://raw.githubusercontent.com/kosheleva/python_flask_med_portal_app/master/demo_icon.png)](https://raw.githubusercontent.com/kosheleva/python_flask_med_portal_app/master/demo.mp4)
 
 ## Database ER-Diagram
 
