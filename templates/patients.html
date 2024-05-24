@@ -64,7 +64,7 @@
 
                           {% endfor %}
 
-                          <form action="/patients_add_schema" method="post">
+                          <form action="/patients_add_schema" method="post" autocomplete="off">
                               <select class="form-control form-select border border-primary" name="medicine_id" id="medicine_id">
                                   <option selected>--лекарство--</option>
 
@@ -99,7 +99,7 @@
 
                 </div>
 
-                <form action="/patients_add_consultation" method="post">
+                <form action="/patients_add_consultation" method="post" autocomplete="off">
                     <input type="text" name="complaint" id="complaint" class="form-control border border-primary"
                       placeholder="Жалоба">
 

@@ -8,7 +8,7 @@
     <h3 class="display-5 fw-bold text-body-emphasis text-center">Регистрация</h3>
     <br>
     <div class="col-lg-4 mx-auto">
-      <form action="/register" method="post">
+      <form action="/register" method="post" autocomplete="off">
           <input type="text" name="name" id="name"
             class="form-control border border-primary {{'border-danger' if 'name' in empty_fields }}" placeholder="Имя">
           {% if "name" in empty_fields %}<div class="error-form-field">Заполните имя</div> {% endif %}
